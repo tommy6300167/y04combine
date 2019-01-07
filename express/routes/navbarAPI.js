@@ -1,17 +1,16 @@
 var express = require("express");
 var router = express.Router();
 var mysql = require("mysql");
+var {connection} =require('./connect_db')
 
-var connection = mysql.createConnection({
-  host: "localhost",
-  database: "U04",
-  user: "root",
-  password: "root",
-  port:8889
-  
+connection.connect(function(err) {
+  if (err) {
+    console.error("error connecting: " + err.stack);
+    return;
+  }
+  console.log("connected as id " + connection.threadId);
 });
 
-connection.connect();
 
 //網紅抓取他所有應徵的案子中,共有幾個未讀訊息
 // http://localhost:3000/sse/ICnavbar/1
